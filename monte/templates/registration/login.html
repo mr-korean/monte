@@ -1,0 +1,14 @@
+<h1>로그인</h1>
+<form action="." method="post">{% csrf_token %}
+
+    {% if form.errors %}
+    <p>내용을 정확하게 입력하셨는지 확인해 주세요.</p>
+    {% endif %}
+    <p>아이디와 비밀번호를 입력해 주세요.</p>
+    <fieldset>
+        {{ form.username.label_tag }} {{ form.username }}<br>
+        {{ form.password.label_tag }} {{ form.password }}
+    </fieldset>
+    <input type="submit" value="로그인"/>
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
