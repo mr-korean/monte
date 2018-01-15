@@ -1,3 +1,6 @@
+{% extends "monte/base.html" %} {% block title %} {% endblock %} {% load staticfiles %}
+
+{% block content %}
 <h1>회원가입</h1>
 <form action="." method="post">{% csrf_token %}
 
@@ -12,3 +15,24 @@
     </fieldset>
     <div><input type="submit" value="회원가입"/></div>
 </form>
+{% endblock %}
+{% block javascript %}
+<script>
+$("#id_username").change(function () {
+    var username = $(this).val();
+    // console.log( username );
+    $.ajax({
+        url: '{% url "validate_username" %}',
+        data: {
+            'username': username
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data.is_taken) {
+                alert(data.error_message);
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

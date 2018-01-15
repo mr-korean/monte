@@ -15,15 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-from mysite.views import HomeView, UserRegisterView, UserRegisterDoneView
+from django.contrib.auth import views
+from mysite.views import HomeView, UserRegisterView, UserRegisterDoneView, validate_username
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^accounts/$', include('django.contrib.auth.urls')),
     url(r'^accounts/register/$', UserRegisterView.as_view(), name='register'),
     url(r'^accounts/register/done/$', UserRegisterDoneView.as_view(), name='register_done'),
-    url(r'^change-password/$', auth_views.PasswordChangeView.as_view(template_name='change-password.html')),
-    url(r'', include('monte.urls')),
+    url(r'^ajax/validate_username/$', validate_username, name="validate_username"),
+    url(r'^monte/', include('monte.urls', namespace="monte")),
 ]

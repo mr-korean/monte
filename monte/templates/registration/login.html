@@ -1,3 +1,6 @@
+{% extends "monte/base.html" %}
+
+{% block content %}
 <h1>로그인</h1>
 <form action="." method="post">{% csrf_token %}
 
@@ -12,3 +15,4 @@
     <input type="submit" value="로그인"/>
     <input type="hidden" name="next" value="{{ next }}" />
 </form>
+{% endblock %}
